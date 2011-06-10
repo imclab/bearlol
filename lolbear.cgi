@@ -390,6 +390,6 @@ class ExampleBunny(bunny1.Bunny1):
 
 
 if __name__ == "__main__":
-    bunny1.main(ExampleBunny())
+    bunny1.main_cgi(ExampleBunny())
 
 
