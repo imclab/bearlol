@@ -36,7 +36,7 @@ DEFAULT_FALLBACK_URL = YUBNUB_URL
 DEFAULT_COMMAND = "help"
 DEFAULT_PORT = 9084
 
-BUNNY1_HOME_URL = "http://www.bunny1.org/"
+BUNNY1_HOME_URL = "http://inst.eecs.berkeley.edu/~seshadri/bunny1/lolbear.cgi"
 
 # a list of commands that we shouldn't list as popular because
 # they sometimes get invoked behind the scenes but not usually

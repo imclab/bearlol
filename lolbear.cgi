@@ -271,12 +271,11 @@ small {
 
 <p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this example server.</p>
 
-<h3>Running Your Own bunny1 Server</h3>
-<ul>Download the <a href="http://github.com/ccheever/bunny1/">source code</a> for the project.  Or if you use setuptools, you can just <code>easy_install bunny1</code>.</ul>
+<h3>What if I want command X to do Y?</h3>
+<ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">http://github.com/ccheever/bunny1/</a>.</ul>
 
-<ul>To run an example server, just run <code>b1_example.py --port=8080</code>.</ul>
-
-<ul>More detailed instructions for configuring and running your own server can be found in the <a href=""" + '"' + self._base_url() + """?readme">README</a>.  You can add your own commands with just a few lines of python.</ul>
+<h3>Installing on Google Chrome</h3>
+<ul>Choose <code>Options</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.  Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.  Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.  Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
 
 <h3>Installing on Firefox</h3>
 <ul>Type <code>about:config</code> into your location bar in Firefox.</ul>
@@ -290,9 +289,6 @@ small {
 <ul>Now, visit the bookmarklet, and in the box that pops up, type <code>list</code> or <code>g facebook comments widget video</code> and hit enter.</ul>
 <ul>In Safari, one thing you can do is make the bookmarklet the leftmost bookmark in your bookmarks bar, and then use <code>Command-1</code> to get to it.</ul>
 <ul>Alternatively, you can get the location bar behavior of Firefox in Safari 3 by using the <a href="http://purefiction.net/keywurl/">keywurl</a> extension.</ul>
-
-<h3>Installing on Google Chrome</h3>
-<ul>Choose <code>Options</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.  Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.  Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.  Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
 
 <h3>Installing on Internet Explorer</h3>
 <ul>There aren't any great solutions for installing """ + name + """ on IE, but two OK solutions are:</ul>
