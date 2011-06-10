@@ -26,7 +26,15 @@ def is_int(x):
     except ValueError:
         return False
 
-class ExampleCommands(bunny1.Bunny1Commands):
+class BearCommands(bunny1.Bunny1Commands):
+
+    def tb(self, arg):
+        """Tele-BEARS Enrollment System"""
+        return "https://telebears.berkeley.edu/telebears/home"
+
+    def bf(self, arg):
+        """Bear Facts - Student Information Systems"""
+        return "https://bearfacts.berkeley.edu"
 
     def lol(self, arg):
         """a random lolcat"""
@@ -343,7 +351,7 @@ def tld_rewriter(new_tld):
     return expose(lambda url: rewrite_tld(url, new_tld))
 
 
-class ExampleDecorators(bunny1.Bunny1Decorators):
+class BearDecorators(bunny1.Bunny1Decorators):
     """decorators that show switching between TLDs"""
 
     # we don't really need to hardcode these since they should get handled
@@ -374,10 +382,10 @@ class ExampleDecorators(bunny1.Bunny1Decorators):
         # break if we send it a quoted url
         return "http://tinyurl.com/create.php?url=%s" % url
 
-class ExampleBunny(bunny1.Bunny1):
+class BearBunny(bunny1.Bunny1):
     """An example"""
     def __init__(self):
-        bunny1.Bunny1.__init__(self, ExampleCommands(), ExampleDecorators())
+        bunny1.Bunny1.__init__(self, BearCommands(), BearDecorators())
 
     # an example showing how you can handle URLs that happen before 
     # the querystring by adding methods to the Bunny class instead of 
@@ -390,6 +398,6 @@ class ExampleBunny(bunny1.Bunny1):
 
 
 if __name__ == "__main__":
-    bunny1.main_cgi(ExampleBunny())
+    bunny1.main_cgi(BearBunny())
 
 
