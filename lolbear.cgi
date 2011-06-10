@@ -221,7 +221,7 @@ class BearCommands(bunny1.Bunny1Commands):
         return """
 <html>
 <head>
-<title>bunny1</title>
+<title>lolbear</title>
 """ + self._opensearch_link() + """
 <style>
 BODY {
@@ -272,7 +272,7 @@ small {
 <p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this example server.</p>
 
 <h3>What if I want command X to do Y?</h3>
-<ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">http://github.com/ccheever/bunny1/</a>.</ul>
+<ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">bunny1/</a>.</ul>
 
 <h3>Installing on Google Chrome</h3>
 <ul>Choose <code>Options</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.  Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.  Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.  Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
