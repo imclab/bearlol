@@ -1,8 +1,9 @@
 #!/usr/bin/python
 
-__author__ = "ccheever"
+__author__ = "seshadri"
 __doc__ = """
-An example bunny1 server with some common commands that you might want to use.
+A bunny1 server for frequently used Berkeley websites and web services. Forked
+from ccheever/bunny1 on Github.
 """
 __version__ = "1.1"
 
@@ -40,17 +41,9 @@ class BearCommands(bunny1.Bunny1Commands):
         """a random lolcat"""
         return "http://icanhascheezburger.com/?random"
 
-    def hoo(self, arg):
-        """a hoogle (haskell + google) search"""
-        return "http://haskell.org/hoogle/?q=%s" % q(arg)
-
     def rickroll(self, arg):
         """You Just Got Rick Roll'd By bunny1!"""
         return "http://tinyurl.com/djddqw"
-
-    def _meta(self, arg):
-        """an example of the convention of prefixing meta commands with an underscore"""
-        raise Content("if you make a meta command, the convention is to use an underscore at the beginning of the name.")
 
     def fb(self, arg):
         """search www.facebook.com or go there"""
@@ -58,6 +51,7 @@ class BearCommands(bunny1.Bunny1Commands):
             return "http://www.facebook.com/s.php?q=%s&init=q" % qp(arg)
         else:
             return "http://www.facebook.com/"
+    f = fb
 
     def fbapp(self, arg):
         """go to a particular Facebook app's default canvas page"""
@@ -81,10 +75,6 @@ class BearCommands(bunny1.Bunny1Commands):
     def fbdevforum(self, arg):
         """goes to the developers discussion forum.  still need to add search to this :/"""
         return "http://forum.developers.facebook.com/"
-
-    def jmirc(self, arg):
-        """goes to dreiss' version of jmIrc"""
-        return "http://www.cdc03.com/jmIrc.jar"
 
     def fblucky(self, arg):
         """facebook i'm feeling lucky search, i.e. go directly to a person's profile"""
@@ -118,16 +108,6 @@ class BearCommands(bunny1.Bunny1Commands):
         else:
             return "http://www.congress.org/congressorg/officials/congress/"
 
-    def wikinvest(self, arg):
-        """Searches Wikinvest or goes there"""
-        if arg:
-            return "http://www.wikinvest.com/Special/Search?search=%s" % qp(arg)
-        else:
-            return "http://www.wikinvest.com/"
-    # make wi and wv be aliasses for wikinvest
-    wi = wikinvest
-    wv = wikinvest
-
     # unlisted makes it so this command won't show up when listing all
     # commands, but the command can still be used
     @bunny1.unlisted
@@ -135,20 +115,6 @@ class BearCommands(bunny1.Bunny1Commands):
         """run finger on the host that this is running on"""
         p = subprocess.Popen(["finger", arg], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         return PRE("<span style='color: red;'>" + escape(p.stderr.read()) + "</span><hr />" + escape(p.stdout.read()))
-
-    # this is dangerous to expose if you are running a public instance
-    # of bunny1, but it might be useful if you are running bunny1 on localhost
-    # behind a firewall
-    # uncomment "dont_expose" if you want to use it (but only if you are
-    # confident that you know what you are doing)
-    @dont_expose
-    def eval(self, arg):
-        try:
-            return PRE(eval(arg))
-        except Content:
-            raise
-        except Exception, e:
-            return PRE("<span style='color: red;'>" + escape(str(e)) + "</span>")
 
     def time(self, arg):
         """shows the current time in US time zones"""
@@ -165,17 +131,9 @@ class BearCommands(bunny1.Bunny1Commands):
         """goes to the spoilerless gamelist in the teamliquid programing database"""
         return "http://www.teamliquid.net/tlpd/games/nospoiler"
 
-    def fbpbz(self, arg):
-        """goes to Facebook Platform Bugzilla bugs"""
-        if arg:
-            return "http://bugs.developers.facebook.com/buglist.cgi?quicksearch=%s" % qp(arg)
-        else:
-            # if no arg, go to the main page of bugzilla
-            return "http://bugs.developers.facebook.com/"
-
     def _author(self, arg):
-        """goes to the author of bunny1's homepage"""
-        return "http://www.ccheever.com/"""
+        """goes to the maintainer's homepage"""
+        return "https://www.twitter.com/seshness"
 
     # an example of a redirect that goes to a non-HTTP URL
     # also, an example of a command that requires an argument
@@ -272,7 +230,7 @@ small {
 <p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this example server.</p>
 
 <h3>What if I want command X to do Y?</h3>
-<ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">bunny1/</a>.</ul>
+<ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">ccheever/bunny1</a>.</ul>
 
 <h3>Installing on Google Chrome</h3>
 <ul>Choose <code>Options</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.  Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.  Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.  Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
@@ -395,5 +353,3 @@ class BearBunny(bunny1.Bunny1):
 
 if __name__ == "__main__":
     bunny1.main_cgi(BearBunny())
-
-
