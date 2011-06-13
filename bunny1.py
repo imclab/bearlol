@@ -36,7 +36,7 @@ DEFAULT_FALLBACK_URL = YUBNUB_URL
 DEFAULT_COMMAND = "help"
 DEFAULT_PORT = 9084
 
-BUNNY1_HOME_URL = "http://inst.eecs.berkeley.edu/~seshadri/bunny1/lolbear.cgi"
+BUNNY1_HOME_URL = "http://hkn.eecs.berkeley.edu/~seshadri/lolbear.cgi"
 
 # a list of commands that we shouldn't list as popular because
 # they sometimes get invoked behind the scenes but not usually
@@ -314,7 +314,7 @@ class Bunny1Commands(object):
 
     def __init__(self):
         self.history = []
-        self.fallback_url = YUBNUB_URL
+        self.fallback_url = GOOGLE_SEARCH_URL
         self.popularity = {}
 
     @dont_expose

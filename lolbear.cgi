@@ -41,6 +41,20 @@ def is_int(x):
 
 class BearCommands(bunny1.Bunny1Commands):
 
+    # Berkeley-specific commands come in before others, in alphabetical order.
+    def bf(self, arg):
+        """Bear Facts - Student Information Systems"""
+        return "https://bearfacts.berkeley.edu"
+
+    def bw(self, args):
+        """See how much bandwidth you have left"""
+        return 'https://www.rescomp.berkeley.edu/cgi-bin/pub/online-helpdesk/index.pl'
+
+    @bunny1.unlisted
+    def hkn(self, arg):
+        """visit the hkn website"""
+        return "https://hkn.eecs.berkeley.edu"
+
     def sc(self, arg):
         """Search the class schedule: 'sc Chemistry', 'sc CS 61A', 'sc Fall Math 110' etc."""
         if not arg:
@@ -65,26 +79,22 @@ class BearCommands(bunny1.Bunny1Commands):
         """Tele-BEARS Enrollment System"""
         return "https://telebears.berkeley.edu/telebears/home"
 
-    def bf(self, arg):
-        """Bear Facts - Student Information Systems"""
-        return "https://bearfacts.berkeley.edu"
+    # General commands go here
 
-    @bunny1.unlisted
-    def hkn(self, arg):
-        """visit the hkn website"""
-        return "https://hkn.eecs.berkeley.edu"
+    # an example of a redirect that goes to a non-HTTP URL
+    # also, an example of a command that requires an argument
+    def aim(self, arg):
+        """use AOL Instant Messenger to IM a given screenname"""
+        return "aim:goim?screenname=%s" % qp(arg)
 
-    def bw(self, args):
-        """See how much bandwidth you have left"""
-        return 'https://www.rescomp.berkeley.edu/cgi-bin/pub/online-helpdesk/index.pl'
-
-    def lol(self, arg):
-        """a random lolcat"""
-        return "http://icanhascheezburger.com/?random"
-
-    def rickroll(self, arg):
-        """You Just Got Rick Roll'd!"""
-        return "http://tinyurl.com/djddqw"
+    def bugcongress(self, arg):
+        """looks up your senator or congressperson based on a zip code you give it"""
+        # similar to the ubiquity command found here:
+        # http://people.mozilla.com/~jdicarlo/ubiquity-tutorial-1.mov
+        if arg:
+            return "http://www.congress.org/congressorg/officials/congress/?lvl=C&azip=%s" % arg
+        else:
+            return "http://www.congress.org/congressorg/officials/congress/"
 
     def fb(self, arg):
         """search www.facebook.com or go there"""
@@ -122,6 +132,24 @@ class BearCommands(bunny1.Bunny1Commands):
         return "http://www.facebook.com/s.php?jtf&q=" + q(arg)
     fbs = fblucky
 
+    def gtalk(self, arg):
+        """google talk"""
+        return 'https://talkgadget.google.com/talkgadget/popout'
+
+    def lol(self, arg):
+        """a random lolcat"""
+        return "http://icanhascheezburger.com/?random"
+
+    # an example of showing content instead of redirecting and also
+    # using content from the filesystem
+    def readme(self, arg):
+        """shows the contents of the README file for this software"""
+        raise bunny1.PRE(bunny1.bunny1_file("README"))
+
+    def rickroll(self, arg):
+        """You Just Got Rick Roll'd!"""
+        return "http://tinyurl.com/djddqw"
+
     def yt(self, arg):
         """Searches YouTube or goes to it"""
         if arg:
@@ -140,26 +168,13 @@ class BearCommands(bunny1.Bunny1Commands):
         else:
             return "http://www.youtube.com/"
 
-    def bugcongress(self, arg):
-        """looks up your senator or congressperson based on a zip code you give it"""
-        # similar to the ubiquity command found here:
-        # http://people.mozilla.com/~jdicarlo/ubiquity-tutorial-1.mov
-        if arg:
-            return "http://www.congress.org/congressorg/officials/congress/?lvl=C&azip=%s" % arg
-        else:
-            return "http://www.congress.org/congressorg/officials/congress/"
-
-    # unlisted makes it so this command won't show up when listing all
-    # commands, but the command can still be used
-    @bunny1.unlisted
-    def _finger(self, arg):
-        """run finger on the host that this is running on"""
-        p = subprocess.Popen(["finger", arg], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return PRE("<span style='color: red;'>" + escape(p.stderr.read()) + "</span><hr />" + escape(p.stdout.read()))
-
     def time(self, arg):
         """shows the current time in US time zones"""
         return "http://tycho.usno.navy.mil/cgi-bin/timer.pl"
+
+    def tlpd(self, arg):
+        """goes to the spoilerless gamelist in the teamliquid programing database"""
+        return "http://www.teamliquid.net/tlpd/games/nospoiler"
 
     def ya(self, arg):
         """searches Yahoo! Answers for an answer to your question"""
@@ -168,53 +183,29 @@ class BearCommands(bunny1.Bunny1Commands):
         else:
             return "http://answers.yahoo.com/"
 
-    def tlpd(self, arg):
-        """goes to the spoilerless gamelist in the teamliquid programing database"""
-        return "http://www.teamliquid.net/tlpd/games/nospoiler"
-
     def _author(self, arg):
         """goes to the maintainer's homepage"""
         return "https://www.twitter.com/seshness"
 
-    # an example of a redirect that goes to a non-HTTP URL
-    # also, an example of a command that requires an argument
-    def aim(self, arg):
-        """use AOL Instant Messenger to IM a given screenname"""
-        return "aim:goim?screenname=%s" % qp(arg)
-
-    # an example of showing content instead of redirecting and also
-    # using content from the filesystem
-    def readme(self, arg):
-        """shows the contents of the README file for this software"""
-        raise bunny1.PRE(bunny1.bunny1_file("README"))
-
     @dont_expose
-    def _help_html(self, examples=None, name="bunny1"):
+    def _help_html(self, examples=None, name="lolbear"):
         """the help page that gets shown if no command or 'help' is entered"""
-
         import random
-
         def bookmarklet(name):
             return """<a href="javascript:bunny1_url='""" + self._base_url() + """?';cmd=prompt('bunny1.  type &quot;help&quot; to get help or &quot;list&quot; to see commands you can use.',window.location);if(cmd){window.location=bunny1_url+escape(cmd);}else{void(0);}">""" + name + """</a>"""
 
         if not examples:
             examples = [
-                    "g phpsh",
-                    "fbpbz 1737",
-                    "wikinvest 2008 Financial Crisis",
-                    "popular",
-                    "ya what is the meaning of life?",
-                    "list Facebook",
-                    "fbs john",
-                    "php array_merge",
-                    "wp FBML",
+                    "g berkeley",
+                    "f Seshadri",
+                    "ya why are Berkeley students awesome?",
+                    "list",
                     "fb mark zuckerberg",
                     "gmaps 285 Hamilton Ave, Palo Alto, CA 94301",
                     "gimg bisu",
                     "rickroll",
                     "yt i'm cool sushi654 yeah",
                     "y osteria palo alto",
-                    "live james harrison",
                     ]
 
         return """
@@ -274,13 +265,15 @@ small {
 <ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">ccheever/bunny1</a>.</ul>
 
 <h3>Installing on Google Chrome</h3>
-<ul>Choose <code>Options</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.  Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.  Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.  Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
+<ul>Choose <code>Preferences</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.</ul>
+<ul>Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>bl</code>, and <code>""" + self._base_url() + """?%s</code>.</ul>
+<ul>Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.</ul>
+<ul>Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
 
 <h3>Installing on Firefox</h3>
 <ul>Type <code>about:config</code> into your location bar in Firefox.</ul>
 <ul>Set the value of keyword.URL to be <code>""" + self._base_url() + """?</code></ul>
 <ul>Make sure you include the <code>http://</code> at the beginning and the <code>?</code> at the end.</ul>
-<ul>Now, type <code>list</code> or <code>wp FBML</code> into your location bar and hit enter.</ul>
 <ul>Also, if you are a Firefox user and find bunny1 useful, you should check out <a href="http://labs.mozilla.com/projects/ubiquity/">Ubiquity</a>.</ul>
 
 <h3>Installing on Safari</h3>
@@ -296,8 +289,8 @@ small {
 
 <hr />
 <small>bunny1 was originally written by <a href="http://www.facebook.com/people/Charlie-Cheever/1160">Charlie Cheever</a> at <a href="http://developers.facebook.com/opensource.php">Facebook</a> and is maintained by him, <a href="http://www.facebook.com/people/David-Reiss/626221207">David Reiss</a>, Eugene Letuchy, and <a href="http://www.facebook.com/people/Daniel-Corson/708561">Dan Corson</a>. Julie Zhuo drew the bunny logo.
-
-Bearlol was forked and is maintained by <a href="https://twitter.com/seshness">Seshadri Mahalingam</a></small>
+<br />
+lolbear was forked and is maintained by <a href="https://twitter.com/seshness">Seshadri Mahalingam</a></small>
 
 
 </body>
