@@ -171,6 +171,10 @@ class BearCommands(bunny1.Bunny1Commands):
         """easter egg"""
         raise HTML('Om nom nom nom nom nom http://lavals.com')
 
+    def qu(self, arg):
+        """Quora search"""
+        return 'http://www.quora.com/?q=' + q(arg)
+
     # an example of showing content instead of redirecting and also
     # using content from the filesystem
     def readme(self, arg):
