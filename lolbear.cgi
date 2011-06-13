@@ -161,6 +161,16 @@ class BearCommands(bunny1.Bunny1Commands):
         """a random lolcat"""
         return "http://icanhascheezburger.com/?random"
 
+    def p(self, args):
+        """Piazzza. Doesn't search, yet.."""
+        return "https://www.piazzza.com"
+    piaza = piazza = piazzza = p
+
+    @bunny1.unlisted
+    def piazzzza(self, arg):
+        """easter egg"""
+        raise HTML('Om nom nom nom nom nom http://lavals.com')
+
     # an example of showing content instead of redirecting and also
     # using content from the filesystem
     def readme(self, arg):
@@ -231,7 +241,7 @@ class BearCommands(bunny1.Bunny1Commands):
 <title>lolbear</title>
 """ + self._opensearch_link() + """
 <style>
-BODY {
+body {
     font-family: Sans-serif;
     width: 800px;
 }
@@ -279,7 +289,8 @@ small {
 <p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this example server.</p>
 
 <h3>What if I want command X to do Y?</h3>
-<ul>Check out the <a href="http://github.com/seshness/bunny1/">source code</a> for the project and submit a pull request, or create an issue. This project was forked from <a href="http://github.com/ccheever/bunny1/">ccheever/bunny1</a>.</ul>
+<ul>Check out the <a href="http://github.com/seshness/bearlol/">source code</a> for the project and submit a pull request, or create an "issue".</ul>
+<ul>This project was forked from <a href="http://github.com/ccheever/bunny1/">ccheever/bunny1</a>.</ul>
 
 <h3>Installing on Google Chrome</h3>
 <ul>Choose <code>Preferences</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.</ul>
@@ -303,6 +314,10 @@ small {
 <ul>There aren't any great solutions for installing """ + name + """ on IE, but two OK solutions are:</ul>
 <ul>You can use this bookmarklet [""" + bookmarklet(name) + """] by dragging into your bookmarks bar and then clicking on it when you want to use """ + name + """.</ul>
 <ul>Or, in IE7+, you can click the down arrow on the search bar to the right of your location bar and choose the starred """ + name + """ option there.  This will install the bunny OpenSearch plugin in your search bar.</ul>
+
+<br />
+
+<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=135569583186732&amp;xfbml=1"></script><fb:like href="https://hkn.eecs.berkeley.edu/~seshadri/lolbear.cgi" send="true" width="450" show_faces="true" font=""></fb:like>
 
 <hr />
 <small>bunny1 was originally written by <a href="http://www.facebook.com/people/Charlie-Cheever/1160">Charlie Cheever</a> at <a href="http://developers.facebook.com/opensource.php">Facebook</a> and is maintained by him, <a href="http://www.facebook.com/people/David-Reiss/626221207">David Reiss</a>, Eugene Letuchy, and <a href="http://www.facebook.com/people/Daniel-Corson/708561">Dan Corson</a>. Julie Zhuo drew the bunny logo.
