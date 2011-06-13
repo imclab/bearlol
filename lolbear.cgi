@@ -7,6 +7,18 @@ from ccheever/bunny1 on Github.
 """
 __version__ = "1.1"
 
+CURRENT_SEMESTER = 'FL'
+SEMESTER_MAP = {
+    'sp':'SP',
+    'spring':'SP',
+    'summer':'SU',
+    'sumer':'SU',
+    'smr':'SU',
+    'fa':'FL',
+    'fl':'FL',
+    'fall':'FL'
+    }
+
 import urlparse
 import subprocess
 
@@ -29,6 +41,26 @@ def is_int(x):
 
 class BearCommands(bunny1.Bunny1Commands):
 
+    def sc(self, arg):
+        """Search the class schedule: 'sc Chemistry', 'sc CS 61A', 'sc Fall Math 110' etc."""
+        if not arg:
+            return 'http://schedule.berkeley.edu'
+        else:
+            terms = arg.split()
+            if len(terms) == 1:
+                terms = [CURRENT_SEMESTER] + terms + ['']
+            elif len(terms) == 2:
+                terms = [CURRENT_SEMESTER] + terms
+            elif len(terms) == 3:
+                terms[0] = SEMESTER_MAP.get(terms[0].lower(), CURRENT_SEMESTER)
+            else:
+                raise HTML('could not understand your query.' + \
+                               ' See the command <a href="?list">list</a> for examples')
+
+            semester, dept, courseNum = terms
+            return "http://osoc.berkeley.edu/OSOC/osoc?p_term=%s&p_dept=%s&p_course=%s" % \
+                (semester, dept, courseNum)
+
     def tb(self, arg):
         """Tele-BEARS Enrollment System"""
         return "https://telebears.berkeley.edu/telebears/home"
@@ -37,12 +69,21 @@ class BearCommands(bunny1.Bunny1Commands):
         """Bear Facts - Student Information Systems"""
         return "https://bearfacts.berkeley.edu"
 
+    @bunny1.unlisted
+    def hkn(self, arg):
+        """visit the hkn website"""
+        return "https://hkn.eecs.berkeley.edu"
+
+    def bw(self, args):
+        """See how much bandwidth you have left"""
+        return 'https://www.rescomp.berkeley.edu/cgi-bin/pub/online-helpdesk/index.pl'
+
     def lol(self, arg):
         """a random lolcat"""
         return "http://icanhascheezburger.com/?random"
 
     def rickroll(self, arg):
-        """You Just Got Rick Roll'd By bunny1!"""
+        """You Just Got Rick Roll'd!"""
         return "http://tinyurl.com/djddqw"
 
     def fb(self, arg):
@@ -276,12 +317,12 @@ Bearlol was forked and is maintained by <a href="https://twitter.com/seshness">S
 
         # this code makes it so that if you put a command in angle brackets
         # (so it looks like an HTML tag), then the command will get executed.
-        # doing something like this is useful when there is a server on your 
-        # LAN with the same name as a command that you want to use without 
+        # doing something like this is useful when there is a server on your
+        # LAN with the same name as a command that you want to use without
         # any arguments.  ex. at facebook, there is an 'svn' command and
-        # the svn(.facebook.com) server, so if you type 'svn' into the 
+        # the svn(.facebook.com) server, so if you type 'svn' into the
         # location bar of a browser, it goes to the server first even though
-        # that's not usually what you want.  this provides a workaround for 
+        # that's not usually what you want.  this provides a workaround for
         # that problem.
         if raw.startswith("<") and raw.endswith(">"):
             return self._b1.do_command(raw[1:-1])
@@ -343,8 +384,8 @@ class BearBunny(bunny1.Bunny1):
     def __init__(self):
         bunny1.Bunny1.__init__(self, BearCommands(), BearDecorators())
 
-    # an example showing how you can handle URLs that happen before 
-    # the querystring by adding methods to the Bunny class instead of 
+    # an example showing how you can handle URLs that happen before
+    # the querystring by adding methods to the Bunny class instead of
     # the commands class
     @cherrypy.expose
     def header_gif(self):
