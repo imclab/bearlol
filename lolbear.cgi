@@ -132,8 +132,29 @@ class BearCommands(bunny1.Bunny1Commands):
         return "http://www.facebook.com/s.php?jtf&q=" + q(arg)
     fbs = fblucky
 
+    def gcal(self, arg):
+        """Google Calendar"""
+        return 'https://www.google.com/calendar'
+
+    def gimg(self, arg):
+        """Google Image Search"""
+        return 'http://images.google.com/images?q=' + q(arg)
+
+    def gmail(self, arg):
+        """Google Mail"""
+        return 'https://mail.google.com/mail'
+        
+    def gmap(self, arg):
+        """Google Maps Search"""
+        return 'http://maps.google.com/maps?q=' + q(arg)
+    gmaps = gmap
+
+    def gnews(self, arg):
+        """Google News"""
+        return 'https://news.google.com/'
+
     def gtalk(self, arg):
-        """google talk"""
+        """Google Talk"""
         return 'https://talkgadget.google.com/talkgadget/popout'
 
     def lol(self, arg):
@@ -171,10 +192,6 @@ class BearCommands(bunny1.Bunny1Commands):
     def time(self, arg):
         """shows the current time in US time zones"""
         return "http://tycho.usno.navy.mil/cgi-bin/timer.pl"
-
-    def tlpd(self, arg):
-        """goes to the spoilerless gamelist in the teamliquid programing database"""
-        return "http://www.teamliquid.net/tlpd/games/nospoiler"
 
     def ya(self, arg):
         """searches Yahoo! Answers for an answer to your question"""
