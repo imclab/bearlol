@@ -41,19 +41,63 @@ def is_int(x):
 
 class BearCommands(bunny1.Bunny1Commands):
 
-    # Berkeley-specific commands come in before others, in alphabetical order.
+    # UC Berkeley-specific commands come in before others, in alphabetical order.
+    def asuc(self, arg):
+        """Associated Students of the University of California (student government) website"""
+        return "http://asuc.org/"
+
+    def bandwidth(self, arg):
+        """See how much bandwidth you have left"""
+        return 'https://www.rescomp.berkeley.edu/cgi-bin/pub/online-helpdesk/index.pl'
+    bw = bandwidth
+
     def bf(self, arg):
         """Bear Facts - Student Information Systems"""
         return "https://bearfacts.berkeley.edu"
 
-    def bw(self, args):
-        """See how much bandwidth you have left"""
-        return 'https://www.rescomp.berkeley.edu/cgi-bin/pub/online-helpdesk/index.pl'
+    def blu(self, arg):
+        """UC Berkeley Employment Portal"""
+        return "http://blu.berkeley.edu"
+
+    def bs(self, arg):
+        """bSpace"""
+        return "https://bspace.berkeley.edu/"
+
+    def cll(self, arg):
+        """Campus Life & Leadership"""
+        return "http://campuslife.berkeley.edu/cll"
+
+    def calmail(self, arg):
+        """calmail, your @berkeley.edu email address"""
+        return "http://calmail.berkeley.edu"
+    email = calmail
+    mail = calmail
+
+    def decal(self, arg):
+        """visit the DeCal website. decal course to search for student run courses"""
+        return "http://www.decal.org/" \
+            if not arg else \
+            "http://www.google.com/cse?cx=008782446105542804781%3A-dpyvf3t2by&ie=UTF-8&sa=Go&siteurl=www.decal.org%2F&q=" + q(arg)
+
+    def events(self, arg):
+        """List of upcoming (official) campus events"""
+        return "http://events.berkeley.edu/"
+
+    def food(self, arg):
+        """Residential Dining Menus for today. food latenight for late night menus."""
+        if not arg:
+            return "http://services.housing.berkeley.edu/FoodPro/dining/static/todaysentrees.asp"
+        elif arg == 'latenight':
+            return "http://caldining.berkeley.edu/menus_late_night.html"
 
     @bunny1.unlisted
     def hkn(self, arg):
         """visit the hkn website"""
-        return "https://hkn.eecs.berkeley.edu"
+        return "https://hkn.eecs.berkeley.edu"        
+
+    def map(self, arg):
+        """Campus map."""
+        return "https://berkeley.edu/map"
 
     def sc(self, arg):
         """Search the class schedule: 'sc Chemistry', 'sc CS 61A', 'sc Fall Math 110' etc."""
@@ -74,6 +118,13 @@ class BearCommands(bunny1.Bunny1Commands):
             semester, dept, courseNum = terms
             return "http://osoc.berkeley.edu/OSOC/osoc?p_term=%s&p_dept=%s&p_course=%s" % \
                 (semester, dept, courseNum)
+
+    def sg(self, arg):
+        """List all student groups. <b>sg name</b> search campus student groups by name"""
+        if not arg:
+            return "http://students.berkeley.edu/osl/studentgroups/public/index.asp?todo=listgroups"
+        else:
+            return "http://students.berkeley.edu/osl/studentgroups/public/index.asp?todo=searchgroups&keyword=" + q(arg)
 
     def tb(self, arg):
         """Tele-BEARS Enrollment System"""
@@ -161,7 +212,7 @@ class BearCommands(bunny1.Bunny1Commands):
         """a random lolcat"""
         return "http://icanhascheezburger.com/?random"
 
-    def p(self, args):
+    def p(self, arg):
         """Piazzza. Doesn't search, yet.."""
         return "https://www.piazzza.com"
     piaza = piazza = piazzza = p
