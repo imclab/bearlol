@@ -208,6 +208,10 @@ class BearCommands(bunny1.Bunny1Commands):
         """Google Talk"""
         return 'https://talkgadget.google.com/talkgadget/popout'
 
+    def gtrans(self, arg):
+        """Google Translate"""
+        return "http://translate.google.com/#auto|en|" + q(arg)
+
     def lol(self, arg):
         """a random lolcat"""
         return "http://icanhascheezburger.com/?random"

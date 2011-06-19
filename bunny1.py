@@ -444,9 +444,9 @@ class Bunny1Commands(object):
         """returns back what you give to it"""
         raise Content(escape(arg))
 
-    def html(self, arg):
-        """returns back the literal HTML you give it"""
-        raise Content(arg)
+#     def html(self, arg):
+#         """returns back the literal HTML you give it"""
+#         raise Content(arg)
 
     def g(self, arg):
         """does a google search.  we could fallback to yubnub, but why do an unnecessary roundtrip for something as common as a google search?"""
@@ -458,6 +458,7 @@ class Bunny1Commands(object):
         import socket
         raise Content(socket.gethostname())
 
+    @unlisted
     def _cookies(self, arg):
         """show the cookies set on this server or search through them"""
         cookie = cherrypy.request.cookie
@@ -468,6 +469,7 @@ class Bunny1Commands(object):
                 html += "<b>%s</b><br />%s<br /><br />" % (escape(str(name)), escape(str(val)))
         raise Content(html)
 
+    @unlisted
     def alias(self, arg):
         """aliases one shortcut to another.  ex: alias p profile.  alias p will show what p is aliased to.  alias with no args will show all aliases."""
         words = arg.split()
@@ -492,6 +494,7 @@ class Bunny1Commands(object):
                         html += "<b>%s</b> is aliased to <b>%s</b><br />" % (escape(name[6:]), escape(cookie[name].value))
                 raise Content(html)
 
+    @unlisted
     def unalias(self, arg):
         """unaliases an alias.  ex: unalias p"""
         if not arg:
